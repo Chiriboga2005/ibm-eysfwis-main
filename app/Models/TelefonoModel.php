@@ -16,7 +16,7 @@ class TelefonoModel extends Model
 
     protected $validationRules = [
         'idpersona' => 'required|is_natural_no_zero|is_not_unique[persona.idpersona]',
-        'numero' => 'required|min_length[7]|max_length[20]|regex_match[/^\+?[0-9 ()-]+$/]',
+        'numero' => 'required|min_length[7]|max_length[20]|regex_match[/^\+?(?:[ ()-]*[0-9]){7,15}[ ()-]*$/D]',
         'tipo' => 'required|in_list[Celular,Fijo,Trabajo,Otro]',
     ];
 
@@ -30,7 +30,7 @@ class TelefonoModel extends Model
             'required' => 'El numero de telefono es obligatorio.',
             'min_length' => 'El telefono debe tener al menos 7 caracteres.',
             'max_length' => 'El telefono no puede superar 20 caracteres.',
-            'regex_match' => 'Usa numeros, espacios, parentesis, guiones y un signo + inicial opcional.',
+            'regex_match' => 'Ingresa entre 7 y 15 digitos; puedes usar espacios, parentesis, guiones y un + inicial.',
         ],
         'tipo' => [
             'required' => 'Debes indicar el tipo de telefono.',
