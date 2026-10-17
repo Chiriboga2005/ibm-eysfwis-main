@@ -8,6 +8,9 @@ use App\Models\EstadoCivilModel;
 use App\Models\DireccionModel;
 use App\Models\CorreoElectronicoModel;
 
+
+// Controlador para la gestión y administración de registros de Personas
+
 class Persona extends BaseController
 {
     protected PersonaModel $personaModel;
