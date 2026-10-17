@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+// Modelo para el acceso a datos y reglas de negocio de la tabla personas
 class PersonaModel extends Model
 {
     use NavigableTrait;
