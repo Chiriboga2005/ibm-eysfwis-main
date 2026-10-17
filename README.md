@@ -4,6 +4,7 @@ Sistema de información desarrollado con **CodeIgniter 4** y base de datos relac
 
 ---
 
+
 ## 🚀 Requisitos del Sistema
 
 - **PHP**: 8.1 o superior (con extensiones `intl`, `mbstring`, `mysqli`, `json`)
@@ -55,3 +56,5 @@ o directamente:
 ```
 http://localhost/eysfwis/
 ```
+---
+*Proyecto eysfwis-main - Registro de avances y control de versiones.*
