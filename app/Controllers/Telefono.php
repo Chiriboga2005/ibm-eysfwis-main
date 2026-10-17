@@ -125,4 +125,26 @@ class Telefono extends ResourceController
 
         return $this->respond($this->model->find($id));
     }
+
+    public function delete($id = null)
+    {
+        if ($id === null || !ctype_digit((string) $id) || (int) $id < 1) {
+            return $this->failValidationErrors('El ID debe ser un entero positivo.');
+        }
+
+        $telefono = $this->model->find($id);
+
+        if ($telefono === null) {
+            return $this->failNotFound('El telefono no existe.');
+        }
+
+        if (!$this->model->delete($id)) {
+            return $this->failServerError('No se pudo eliminar el telefono.');
+        }
+
+        return $this->respondDeleted([
+            'mensaje' => 'Telefono eliminado correctamente.',
+            'idtelefono' => (int) $id,
+        ]);
+    }
 }
