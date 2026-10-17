@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
  *
  * For security be sure to declare any new methods as protected or private.
  */
+// Controlador base para la gestión de solicitudes y helper global del proyecto
 abstract class BaseController extends Controller
 {
     /**
