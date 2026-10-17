@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+// Controlador para la gestión de direcciones del sistema
 
 use App\Models\DireccionModel;
 use App\Models\PersonaModel;
