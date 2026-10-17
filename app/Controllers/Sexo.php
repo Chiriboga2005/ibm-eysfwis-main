@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\SexoModel;
 
+// Controlador para el catálogo de opciones de Sexo
+
 class Sexo extends BaseController
 {
     protected SexoModel $sexoModel;
