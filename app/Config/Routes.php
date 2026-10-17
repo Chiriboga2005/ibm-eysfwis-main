@@ -120,3 +120,14 @@ $routes->group('correo', static function ($routes) {
     $routes->post('update/(:num)', 'Correo::update/$1');
     $routes->match(['get', 'post'], 'delete/(:num)', 'Correo::delete/$1');
 });
+
+
+// API de telefonos
+$routes->group('api/telefonos', static function ($routes) {
+    $routes->get('', 'Telefono::index');
+    $routes->get('(:num)', 'Telefono::show/$1');
+    $routes->post('', 'Telefono::create');
+    $routes->put('(:num)', 'Telefono::update/$1');
+    $routes->patch('(:num)', 'Telefono::update/$1');
+    $routes->delete('(:num)', 'Telefono::delete/$1');
+});
