@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+// Controlador para el catálogo de Estado Civil
 
 use App\Models\EstadoCivilModel;
 
