@@ -32,4 +32,40 @@ class Telefono extends ResourceController
 
         return $this->respond($telefono);
     }
+
+    public function create()
+    {
+        $entrada = json_decode($this->request->getBody());
+
+        if (json_last_error() !== JSON_ERROR_NONE || !is_object($entrada)) {
+            return $this->failValidationErrors('Envia un objeto JSON valido.');
+        }
+
+        $datos = [
+            'idpersona' => $entrada->idpersona ?? null,
+            'numero' => $entrada->numero ?? null,
+            'tipo' => $entrada->tipo ?? 'Celular',
+        ];
+
+        if (
+            !(is_int($datos['idpersona']) || is_string($datos['idpersona']))
+            || !is_string($datos['numero'])
+            || !is_string($datos['tipo'])
+        ) {
+            return $this->failValidationErrors(
+                'idpersona debe ser un entero; numero y tipo deben ser textos.'
+            );
+        }
+
+        $datos['numero'] = trim($datos['numero']);
+        $datos['tipo'] = trim($datos['tipo']);
+
+        $id = $this->model->insert($datos);
+
+        if ($id === false) {
+            return $this->failValidationErrors($this->model->errors());
+        }
+
+        return $this->respondCreated($this->model->find($id));
+    }
 }
