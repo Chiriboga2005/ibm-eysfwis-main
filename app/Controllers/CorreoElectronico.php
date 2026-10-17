@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+// Controlador para la gestión de correos electrónicos asociados
 use App\Models\CorreoElectronicoModel;
 use App\Models\PersonaModel;
 
