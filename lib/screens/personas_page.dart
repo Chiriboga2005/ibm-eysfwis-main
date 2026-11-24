@@ -211,7 +211,38 @@ class _PersonaFormPageState extends State<PersonaFormPage> {
               ),
             ],
           ),
+        
         ),
+        return Card(
+  elevation: 3,
+  margin: const EdgeInsets.symmetric(
+    horizontal: 12,
+    vertical: 6,
+  ),
+  child: ListTile(
+    leading: const CircleAvatar(
+      backgroundColor: Colors.blue,
+      child: Icon(
+        Icons.person,
+        color: Colors.white,
+      ),
+    ),
+    title: Text(
+      persona.nombre,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    subtitle: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(persona.correo),
+        Text('Teléfono: ${persona.telefono}'),
+      ],
+    ),
+    isThreeLine: true,
+  ),
+);
       ),
     );
   }
