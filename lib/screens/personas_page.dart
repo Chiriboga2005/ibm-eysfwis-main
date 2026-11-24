@@ -96,4 +96,124 @@ class _PersonasPageState extends State<PersonasPage> {
       ),
     );
   }
+  import 'package:flutter/material.dart';
+import '../models/persona.dart';
+import '../services/api_service.dart';
+
+class PersonaFormPage extends StatefulWidget {
+  const PersonaFormPage({super.key});
+
+  @override
+  State<PersonaFormPage> createState() => _PersonaFormPageState();
+}
+
+class _PersonaFormPageState extends State<PersonaFormPage> {
+  final _formKey = GlobalKey<FormState>();
+  final api = ApiService();
+
+  final nombre = TextEditingController();
+  final sexo = TextEditingController();
+  final correo = TextEditingController();
+  final direccion = TextEditingController();
+  final telefono = TextEditingController();
+  final estadoCivil = TextEditingController();
+
+  bool guardando = false;
+
+  Future<void> guardar() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => guardando = true);
+
+    try {
+      final persona = Persona(
+        nombre: nombre.text.trim(),
+        sexo: sexo.text.trim(),
+        correo: correo.text.trim(),
+        direccion: direccion.text.trim(),
+        telefono: telefono.text.trim(),
+        estadoCivil: estadoCivil.text.trim(),
+      );
+
+      final resultado = await api.crearPersona(persona);
+
+      if (!mounted) return;
+
+      if (resultado) {
+        Navigator.pop(context, true);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No se pudo registrar')),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    } finally {
+      if (mounted) setState(() => guardando = false);
+    }
+  }
+
+  Widget campo(String titulo, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: titulo,
+          border: const OutlineInputBorder(),
+        ),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'Ingrese $titulo';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    nombre.dispose();
+    sexo.dispose();
+    correo.dispose();
+    direccion.dispose();
+    telefono.dispose();
+    estadoCivil.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Registrar persona')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              campo('Nombre completo', nombre),
+              campo('Sexo', sexo),
+              campo('Correo electrónico', correo),
+              campo('Dirección', direccion),
+              campo('Teléfono', telefono),
+              campo('Estado civil', estadoCivil),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: guardando ? null : guardar,
+                child: Text(
+                  guardando ? 'Guardando...' : 'Registrar persona',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 }
