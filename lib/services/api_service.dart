@@ -23,4 +23,14 @@ class ApiService {
 
     throw Exception('Error al obtener personas');
   }
+  Future<bool> crearPersona(Persona persona) async {
+  final response = await http.post(
+    Uri.parse('$baseUrl/personas'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(persona.toJson()),
+  );
+
+  return response.statusCode == 200 ||
+      response.statusCode == 201;
+}
 }
