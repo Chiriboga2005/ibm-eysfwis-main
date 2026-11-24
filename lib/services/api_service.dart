@@ -28,6 +28,15 @@ class ApiService {
     Uri.parse('$baseUrl/personas'),
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode(persona.toJson()),
+    Future<bool> actualizarPersona(Persona persona) async {
+  final response = await http.put(
+    Uri.parse('$baseUrl/personas/${persona.id}'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode(persona.toJson()),
+  );
+
+  return response.statusCode == 200;
+}
   );
 
   return response.statusCode == 200 ||
