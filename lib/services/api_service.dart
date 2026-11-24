@@ -37,6 +37,14 @@ class ApiService {
 
   return response.statusCode == 200;
 }
+    Future<bool> eliminarPersona(int id) async {
+  final response = await http.delete(
+    Uri.parse('$baseUrl/personas/$id'),
+  );
+
+  return response.statusCode == 200 ||
+      response.statusCode == 204;
+}
   );
 
   return response.statusCode == 200 ||
